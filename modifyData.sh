@@ -17,14 +17,26 @@ flag=1
 #数据库路径
 MYSQL=`which mysql`
 
+#请求语句
+conn=" -u "$2" -p"$3
+
+#查询是否数据库存在
+$MYSQL $conn -se 'show databases' | grep $1 > /dec/null
+
+#若不存在，添加数据库
+if [ $? -ne 0 ]
+then
+    $MYSQL $conn -e 'create database '$1
+fi
+
 #请求query
-conn=$1" -u "$2" -pzxcvb0"
+conn=$1" -u "$2" -p"$3
 
 #键入参数
-if [ $# -ne 3 ] && [ -f $3 ] #规范输入参数
+if [ $# -ne 4 ] && [ -f $4 ] #规范输入参数
 then
     #显示提示信息
-    echo "Usage: you should enter DBName、DBUser and SQLFile"
+    echo "Usage: you should enter DBName、DBUser、UserPassWd and SQLFile"
     exit
 else
     #获取表名
@@ -126,8 +138,8 @@ do
 done
 echo
 
-echo $numtotal
-echo $counter
+#echo $numtotal
+#echo $counter
 
 #删除临时数据CSV
 rm $datatempcsv
