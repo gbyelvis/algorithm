@@ -1,9 +1,8 @@
 #!/bin/bash
 
-mkdir ~/bigData
 
-zipfile=`ls | grep *.zip`
+gzfile=`ls | grep *.tar.gz`
 
-unzip $zipfile -d ~/bigData
+tar -xzvf $gzfile -C ~/
 
 echo "eXtract all the files into exDir"

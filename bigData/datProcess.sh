@@ -18,11 +18,9 @@ MYSQL=`which mysql`
 
 conn=$DB" -u "$1" -p"$2
 
-tabnum=`ls | grep tables.txt`
+tabresult=`cat tables.txt`
 
-tabresult=`cat $tabnum`
-
-rm $tabnum
+rm tables.txt
 
 for tab in $tabresult
 do
@@ -39,9 +37,8 @@ b=0
 x="#"
 
 
-datatempcsv=`ls | grep *.csv`
 #读取临时文件数据
-result=`cat $datatempcsv`
+result=`cat sql.csv | sort -t ',' -k1 -k2 -u`
 #cat #result
 #遍历数据
 for subres in $result
@@ -80,7 +77,7 @@ do
     then
         userId=$userId","$t2
     else
-        echo $temold$userId >> ~/finalData.csv
+        echo $temold$userId >> ~/bigData/finalData.csv
         temold=$t1
         userId=","$t2
     fi
@@ -102,4 +99,4 @@ echo
 #echo $counter
 
 #删除临时数据CSV
-rm $datatempcsv
+#rm $datatempcsv

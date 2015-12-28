@@ -14,6 +14,7 @@ else
 
     chmod u+x unzipdata.sh
     ./unzipdata.sh
+    cd ~/bigData/
     echo "---------------------------------------------------------------------"
 
     echo "[The fisrt step:]"
